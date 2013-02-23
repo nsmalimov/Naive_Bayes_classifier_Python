@@ -1,0 +1,10 @@
+README.rst
+setup.py
+src/boilerpipe/__init__.py
+src/boilerpipe.egg-info/PKG-INFO
+src/boilerpipe.egg-info/SOURCES.txt
+src/boilerpipe.egg-info/dependency_links.txt
+src/boilerpipe.egg-info/not-zip-safe
+src/boilerpipe.egg-info/requires.txt
+src/boilerpipe.egg-info/top_level.txt
+src/boilerpipe/extract/__init__.py
