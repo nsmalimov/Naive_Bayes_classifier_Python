@@ -9,6 +9,7 @@ Run first then the second spider.
 scrapy crawl "name_of_spider"
 
 Requirements
+
 Python 2.7 or up
 Works on Linux
 Scrapy http://scrapy.org/
