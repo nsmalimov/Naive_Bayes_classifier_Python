@@ -1,16 +1,18 @@
-import jpype
-import urllib2
 import socket
-import chardet
 import threading
+import urllib2
+
+import chardet
+import jpype
 
 socket.setdefaulttimeout(15)
 lock = threading.Lock()
 
-InputSource        = jpype.JClass('org.xml.sax.InputSource')
-StringReader       = jpype.JClass('java.io.StringReader')
-HTMLHighlighter    = jpype.JClass('de.l3s.boilerpipe.sax.HTMLHighlighter')
+InputSource = jpype.JClass('org.xml.sax.InputSource')
+StringReader = jpype.JClass('java.io.StringReader')
+HTMLHighlighter = jpype.JClass('de.l3s.boilerpipe.sax.HTMLHighlighter')
 BoilerpipeSAXInput = jpype.JClass('de.l3s.boilerpipe.sax.BoilerpipeSAXInput')
+
 
 class Extractor(object):
     """
@@ -26,14 +28,14 @@ class Extractor(object):
     - CanolaExtractor
     """
     extractor = None
-    source    = None
-    data      = None
-    
+    source = None
+    data = None
+
     def __init__(self, extractor='DefaultExtractor', **kwargs):
         if kwargs.get('url'):
-            request   = urllib2.urlopen(kwargs['url'])
+            request = urllib2.urlopen(kwargs['url'])
             self.data = request.read()
-            encoding  = request.headers['content-type'].lower().split('charset=')[-1]
+            encoding = request.headers['content-type'].lower().split('charset=')[-1]
             if encoding.lower() == 'text/html':
                 encoding = chardet.detect(self.data)['encoding']
             self.data = unicode(self.data, encoding)
@@ -50,23 +52,23 @@ class Extractor(object):
                 if jpype.isThreadAttachedToJVM() == False:
                     jpype.attachThreadToJVM()
             lock.acquire()
-            
+
             self.extractor = jpype.JClass(
-                "de.l3s.boilerpipe.extractors."+extractor).INSTANCE
+                "de.l3s.boilerpipe.extractors." + extractor).INSTANCE
         finally:
             lock.release()
-    
+
         reader = StringReader(self.data)
         self.source = BoilerpipeSAXInput(InputSource(reader)).getTextDocument()
         self.extractor.process(self.source)
-    
+
     def getText(self):
         return self.source.getContent()
-    
+
     def getHTML(self):
         highlighter = HTMLHighlighter.newExtractingInstance()
         return highlighter.process(self.source, self.data)
-    
+
     def getImages(self):
         extractor = jpype.JClass(
             "de.l3s.boilerpipe.sax.ImageExtractor").INSTANCE
@@ -74,11 +76,11 @@ class Extractor(object):
         jpype.java.util.Collections.sort(images)
         images = [
             {
-                'src'   : image.getSrc(),
-                'width' : image.getWidth(),
+                'src': image.getSrc(),
+                'width': image.getWidth(),
                 'height': image.getHeight(),
-                'alt'   : image.getAlt(),
-                'area'  : image.getArea()
+                'alt': image.getAlt(),
+                'area': image.getArea()
             } for image in images
-        ]
+            ]
         return images

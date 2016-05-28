@@ -5,6 +5,7 @@
 
 from scrapy.item import Item, Field
 
+
 class LowerBranchesItem(Item):
-   link = Field()
-   nowurl=Field()
+    link = Field()
+    nowurl = Field()

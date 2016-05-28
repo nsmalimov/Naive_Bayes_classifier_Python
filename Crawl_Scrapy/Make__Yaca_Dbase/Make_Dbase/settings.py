@@ -17,4 +17,3 @@ CONCURRENT_REQUESTS = 1
 DOWNLOAD_DELAY = 0.4
 
 ITEM_PIPELINES = ['Make_Dbasel.pipelines.MakeDbasePipeline']
-

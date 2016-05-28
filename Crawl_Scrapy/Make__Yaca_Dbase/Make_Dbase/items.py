@@ -5,6 +5,7 @@
 
 from scrapy.item import Item, Field
 
+
 class MakeDbaseItem(Item):
-   link = Field()
-   file1 = Field()
+    link = Field()
+    file1 = Field()
