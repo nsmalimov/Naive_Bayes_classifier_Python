@@ -64,7 +64,3 @@ text_for_classif="something text" is your text for classification.
 
 When the classification will be over you will see value c (see about Bayes theorem) and name of 
 category when c is smallest.
-
-
-
-
