@@ -356,7 +356,7 @@ class Document:
                 continue
             # self.debug(s)
             if REGEXES['unlikelyCandidatesRe'].search(s) and (
-            not REGEXES['okMaybeItsACandidateRe'].search(s)) and elem.tag not in ['html', 'body']:
+                    not REGEXES['okMaybeItsACandidateRe'].search(s)) and elem.tag not in ['html', 'body']:
                 self.debug("Removing unlikely candidate - %s" % describe(elem))
                 elem.drop_tree()
 

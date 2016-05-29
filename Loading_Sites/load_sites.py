@@ -44,7 +44,7 @@ for line in Lines:
         file_load.write(str(number1) + ' ' + line)
     except:
         print(line)
-        
+
 file_categories.close()
 file_sites.close()
 file_load.close()
